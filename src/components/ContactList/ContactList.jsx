@@ -30,6 +30,7 @@ const mapStateToProps = state => {
   );
   return { contacts: visibleContacts };
 };
+
 const mapDispatchToProps = dispatch => ({
   removeContact: id => dispatch(contactsActions.removeContact(id)),
 });
