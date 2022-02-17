@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
+import { connect } from 'react-redux'
+import contactsActions from '../../redux/actions'
 import s from './ContactForm.module.css';
 
 const ContactForm = ({ addContact, contacts }) => {
@@ -80,5 +82,11 @@ ContactForm.propTypes = {
   name: PropTypes.string,
   number: PropTypes.string,
 };
+const mapStateToProps = (state) => ({
+  contacts: state.contacts.items
+})
+const mapDispatchToProps = dispatch => ({
+  addContact: (newContact)=> dispatch(contactsActions.addContact(newContact))
+})
 
-export default ContactForm;
+export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
