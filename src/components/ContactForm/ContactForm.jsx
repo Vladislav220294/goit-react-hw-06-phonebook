@@ -1,13 +1,18 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
-import { connect } from 'react-redux'
 import contactsActions from '../../redux/actions'
 import s from './ContactForm.module.css';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-const ContactForm = ({ addContact, contacts }) => {
+const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  const contacts = useSelector(state => state.contacts.items);
+  const dispatch = useDispatch();
+  const addContact = (newContact)=> dispatch(contactsActions.addContact(newContact))
 
   const handleInputChange = event => {
     const { name, value } = event.currentTarget;
@@ -79,18 +84,11 @@ const ContactForm = ({ addContact, contacts }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  contacts: state.contacts.items
-})
-const mapDispatchToProps = dispatch => ({
-  addContact: (newContact)=> dispatch(contactsActions.addContact(newContact))
-})
-
 ContactForm.propTypes = {
   name: PropTypes.string,
   number: PropTypes.string,
-  addContact: PropTypes.func.isRequired,
-  contacts: PropTypes.arrayOf(PropTypes.object).isRequired
+  addContact: PropTypes.func,
+  contacts: PropTypes.arrayOf(PropTypes.object)
 };
-export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
+export default ContactForm;
 
