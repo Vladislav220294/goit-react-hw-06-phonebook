@@ -22,16 +22,6 @@ const ContactList = ({ contacts, removeContact }) => {
     </ul>
   );
 };
-ContactList.propTypes = {
-  removeContact: PropTypes.func.isRequired,
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
-  ),
-};
 
 const mapStateToProps = state => {
   const { items, filter } = state.contacts;
@@ -44,3 +34,13 @@ const mapDispatchToProps = dispatch => ({
   removeContact: id => dispatch(contactsActions.removeContact(id)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
+
+ContactList.propTypes = {
+  removeContact: PropTypes.func.isRequired,
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ),
+};

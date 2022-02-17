@@ -78,10 +78,7 @@ const ContactForm = ({ addContact, contacts }) => {
     </div>
   );
 };
-ContactForm.propTypes = {
-  name: PropTypes.string,
-  number: PropTypes.string,
-};
+
 const mapStateToProps = (state) => ({
   contacts: state.contacts.items
 })
@@ -89,4 +86,11 @@ const mapDispatchToProps = dispatch => ({
   addContact: (newContact)=> dispatch(contactsActions.addContact(newContact))
 })
 
+ContactForm.propTypes = {
+  name: PropTypes.string,
+  number: PropTypes.string,
+  addContact: PropTypes.func.isRequired,
+  contacts: PropTypes.arrayOf(PropTypes.object).isRequired
+};
 export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
+
